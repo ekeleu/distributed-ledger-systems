@@ -1,0 +1,19 @@
+[Unit]
+Description=Bitcoin Daemeon
+After=network.target mnt-eth-fresh-node.mount
+
+[Service]
+ExecStart=/usr/local/bin/bitcoind -datadir=/mnt/eth-fresh-node/bitcoin -dbcache=8000 -txindex=1 -daemon
+Type=forking
+User=nodeadmin
+Group=nodeadmin
+Restart=on-failure
+
+# Resource Orchestration Priorities
+Nice=15
+CPUSchedulingPolicy=other
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+
+[Install]
+WantedBy=multi-user.target
